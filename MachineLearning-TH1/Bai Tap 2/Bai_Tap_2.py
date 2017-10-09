@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 """
-Bài TH 2: Thực hiện K-means và Spectral Clustering cho dữ liệu Hand-written Digits
+TH 1 - Bài 2: Thực hiện K-means, Spectral Clustering, DBSCAN cho dữ liệu Hand-written Digits
 
             Tranform data sang PCA 2-D trước khi chạy Clustering
 
 @author: Hoàng Hữu Tín - 14520956
 Created on Thu Sep 28 14:06:38 2017
-Last Modified: Oct 05 5:02 PM
+Last Modified: Oct 10 12:30 AM
 """
 
 import numpy as np

@@ -1,11 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26730.15
+VisualStudioVersion = 15.0.26730.16
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Bai Tap 1", "Bai Tap 1\Bai Tap 1.pyproj", "{5EC02268-2D62-4816-8249-DD48AC04CADC}"
 EndProject
 Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Bai Tap 2", "Bai Tap 2\Bai Tap 2.pyproj", "{AF6CB666-2EAF-4254-BC53-9AC06A83F035}"
+EndProject
+Project("{888888A0-9F3D-457C-B088-3A5042F75D52}") = "Bai Tap 3", "Bai Tap 3\Bai Tap 3.pyproj", "{B1782287-ADD4-4B2E-8F88-A62F43905469}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,6 +19,8 @@ Global
 		{5EC02268-2D62-4816-8249-DD48AC04CADC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AF6CB666-2EAF-4254-BC53-9AC06A83F035}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AF6CB666-2EAF-4254-BC53-9AC06A83F035}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1782287-ADD4-4B2E-8F88-A62F43905469}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1782287-ADD4-4B2E-8F88-A62F43905469}.Release|Any CPU.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
