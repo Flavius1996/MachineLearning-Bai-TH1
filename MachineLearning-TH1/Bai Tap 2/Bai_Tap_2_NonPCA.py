@@ -2,7 +2,7 @@
 """
 Bài TH 2: Thực hiện K-means và Spectral Clustering cho dữ liệu Hand-written Digits
 
-            Tranform data sang PCA 2-D trước khi chạy Clustering
+            Không tranform data sang PCA 2-D trước khi chạy Clustering
 
 @author: Hoàng Hữu Tín - 14520956
 Created on Thu Sep 28 14:06:38 2017
@@ -28,17 +28,14 @@ n_samples, n_features = data.shape
 n_digits = len(np.unique(digits.target))
 target = digits.target
 
-# Tranform to PCA 2-D space
-reduced_data = PCA(n_components=2).fit_transform(data)
-
 ## ############################# K-MEANS ###################################
 
-kmeans = cluster.KMeans(init='k-means++', n_clusters=n_digits, n_init=10).fit(reduced_data)
-y_pred_kmeans = kmeans.predict(reduced_data)
+kmeans = cluster.KMeans(init='k-means++', n_clusters=n_digits, n_init=10).fit(data)
+y_pred_kmeans = kmeans.predict(data)
 
 ## ############################# SPECTRAL ###################################
 
-connectivity = kneighbors_graph(reduced_data, n_neighbors=10, include_self=True, n_jobs=1)
+connectivity = kneighbors_graph(data, n_neighbors=10, include_self=True, n_jobs=1)
 affinity_matrix = 0.5 * (connectivity + connectivity.T)
 
 y_pred_spectral = cluster.SpectralClustering(affinity="precomputed",
@@ -46,7 +43,7 @@ y_pred_spectral = cluster.SpectralClustering(affinity="precomputed",
                                          eigen_solver='arpack').fit_predict(affinity_matrix)
 
 ## ############################## DBSCAN ###################################
-db = cluster.DBSCAN(eps=0.3, min_samples=10).fit(reduced_data)
+db = cluster.DBSCAN(eps=0.3, min_samples=10).fit(data)
 core_samples_mask = np.zeros_like(db.labels_, dtype=bool)
 core_samples_mask[db.core_sample_indices_] = True
 y_pred_dbscan = db.labels_
@@ -54,14 +51,17 @@ db_n_clusters_ = len(set(db.labels_)) - (1 if -1 in db.labels_ else 0)
 
 ## ############################## SHOW RESULT ################################
 
+# Reduce 64-dim data to 2-dim data for visualization
+reduced_data = PCA(n_components=2).fit_transform(data)
+
 f, (ax1, ax2, ax3) = plt.subplots(1, 3, sharey=True)
-f.suptitle("PCA-based Clustering", fontsize=16)
+f.suptitle("Non PCA-based Clustering", fontsize=16)
 
 # Plot the centroids as a red X
-centroids = kmeans.cluster_centers_
-ax1.scatter(centroids[:, 0], centroids[:, 1],
-            marker='x', s=169, linewidths=3,
-            color='r', zorder=10)
+#centroids = PCA(n_components = 2).fit_transform(kmeans.cluster_centers_.data)
+#ax1.scatter(centroids[:, 0], centroids[:, 1],
+#            marker='x', s=169, linewidths=3,
+#            color='r', zorder=10)
 
 ax1.scatter(reduced_data[:, 0], reduced_data[:, 1], c = y_pred_kmeans, s = 4)
 ax1.set_title('K-means')
