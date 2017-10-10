@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>af6cb666-2eaf-4254-bc53-9ac06a83f035</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Bai_Tap_2_NonPCA.py</StartupFile>
+    <StartupFile>Bai_Tap_2.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -22,9 +22,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Bai_Tap_2.py" />
-    <Compile Include="Bai_Tap_2_NonPCA.py">
-      <SubType>Code</SubType>
-    </Compile>
+    <Compile Include="Bai_Tap_2_NonPCA.py" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in

@@ -6,12 +6,12 @@ TH 1 - Bài 2: Thực hiện K-means, Spectral, DBSCAN và Agglomerative Cluster
 
 @author: Hoàng Hữu Tín - 14520956
 Created on Thu Sep 28 14:06:38 2017
-Last Modified: Oct 10 11:00 AM
+Last Modified: Oct 10 21:20 PM
 """
 
 import numpy as np
 import matplotlib.pyplot as plt
-
+from time import time
 from sklearn import cluster, datasets, mixture
 from sklearn import metrics
 from sklearn.datasets import load_digits
@@ -20,44 +20,90 @@ from sklearn.preprocessing import scale
 from sklearn.neighbors import kneighbors_graph
 
 
+# Global Variables
+CLUSTER = {"model":None, "time": 0, "name" : None}
+CLUSTERS_ARR = []
+
 ## ############################# READ DATA ###################################
+np.random.seed(42)
+
 digits = load_digits()
 data = scale(digits.data)           # normalized data
 
 n_samples, n_features = data.shape
 n_digits = len(np.unique(digits.target))
-target = digits.target
+TARGET = digits.target
 
 # Tranform to PCA 2-D space
 reduced_data = PCA(n_components=2).fit_transform(data)
 
 ## ############################# K-MEANS ###################################
-
+t0 = time()
 kmeans = cluster.KMeans(init='k-means++', n_clusters=n_digits, n_init=10).fit(reduced_data)
+CLUSTER["time"] = time() - t0
+CLUSTER["name"] = "K-means"
+CLUSTER["model"] = kmeans
+CLUSTERS_ARR.append(CLUSTER.copy())
+
 y_pred_kmeans = kmeans.predict(reduced_data)
 
 ## ############################# SPECTRAL ###################################
-
+t0 = time()
 connectivity = kneighbors_graph(reduced_data, n_neighbors=10, include_self=True, n_jobs=1)
 affinity_matrix = 0.5 * (connectivity + connectivity.T)
 
-y_pred_spectral = cluster.SpectralClustering(affinity="precomputed",
+spectral = cluster.SpectralClustering(affinity="precomputed",
                                          n_clusters=n_digits,
-                                         eigen_solver='arpack').fit_predict(affinity_matrix)
+                                         eigen_solver='arpack').fit(affinity_matrix)
+CLUSTER["time"] = time() - t0
+CLUSTER["name"] = "Spectral"
+CLUSTER["model"] = spectral
+CLUSTERS_ARR.append(CLUSTER.copy())
+
+y_pred_spectral = spectral.labels_
 
 ## ############################## DBSCAN ###################################
+t0 = time()
 db = cluster.DBSCAN(eps=0.3, min_samples=10).fit(reduced_data)
+
+CLUSTER["time"] = time() - t0
+CLUSTER["name"] = "DBSCAN"
+CLUSTER["model"] = db
+CLUSTERS_ARR.append(CLUSTER.copy())
+
 core_samples_mask = np.zeros_like(db.labels_, dtype=bool)
 core_samples_mask[db.core_sample_indices_] = True
 db_n_clusters_ = len(set(db.labels_)) - (1 if -1 in db.labels_ else 0)      # Number of Clusters
 y_pred_dbscan = db.labels_
 
 ## ########################### Agglomerative #################################
+t0 = time()
+agglo = cluster.AgglomerativeClustering(linkage="ward", n_clusters=n_digits).fit(reduced_data)
+CLUSTER["time"] = time() - t0
+CLUSTER["name"] = "Agglomerative"
+CLUSTER["model"] = agglo
+CLUSTERS_ARR.append(CLUSTER.copy())
 
-y_pred_agglo = cluster.AgglomerativeClustering(linkage="ward", n_clusters=n_digits).fit_predict(reduced_data)
+y_pred_agglo = agglo.labels_
 
+## ######################## PERFORMANCE EVALUATION  ############################
+print(20 * ' '+ "PCA-BASED CLUSTERING PERFORMANCE EVALUATION")
+print(84 * '=')
+print('Method\t\ttime\tARI\tAMI\thomogeneity\tcompleteness\tv-measure')
+print(84 * '-')
+for method in CLUSTERS_ARR:
+    print('%-9s\t%.2fs\t%.3f\t%.3f\t%7.3f\t%16.3f\t%7.3f'
+                % ( method["name"], method["time"],
+                metrics.adjusted_rand_score(TARGET, method["model"].labels_),
+                metrics.adjusted_mutual_info_score(TARGET,  method["model"].labels_),
+                metrics.homogeneity_score(TARGET, method["model"].labels_),
+                metrics.completeness_score(TARGET, method["model"].labels_),
+                metrics.v_measure_score(TARGET, method["model"].labels_))
+               # metrics.fowlkes_mallows_score(TARGET, method["model"].labels_))        # Seem don't work, return: nan
+         )
+print(84 * '=')
 
-## ############################## SHOW RESULT ################################
+## ############################## VISUALIZE RESULT ################################
 
 f, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, sharey=True)
 f.suptitle("PCA-based Clustering", fontsize=16)
@@ -81,4 +127,3 @@ ax4.scatter(reduced_data[:, 0], reduced_data[:, 1], c = y_pred_agglo, s = 4)
 ax4.set_title('Agglomerative')
 
 plt.show()
-
