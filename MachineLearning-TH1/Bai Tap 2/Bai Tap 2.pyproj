@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>af6cb666-2eaf-4254-bc53-9ac06a83f035</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>Bai_Tap_2.py</StartupFile>
+    <StartupFile>Bai_Tap_2_NonPCA.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>

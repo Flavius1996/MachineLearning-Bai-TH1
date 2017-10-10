@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
 """
-TH 1 - Bài 2: Thực hiện K-means, Spectral Clustering, DBSCAN cho dữ liệu Hand-written Digits
+TH 1 - Bài 2: Thực hiện K-means, Spectral, DBSCAN và Agglomerative Clustering cho dữ liệu Hand-written Digits
 
             Tranform data sang PCA 2-D trước khi chạy Clustering
 
 @author: Hoàng Hữu Tín - 14520956
 Created on Thu Sep 28 14:06:38 2017
-Last Modified: Oct 10 12:30 AM
+Last Modified: Oct 10 11:00 AM
 """
 
 import numpy as np
@@ -49,12 +49,17 @@ y_pred_spectral = cluster.SpectralClustering(affinity="precomputed",
 db = cluster.DBSCAN(eps=0.3, min_samples=10).fit(reduced_data)
 core_samples_mask = np.zeros_like(db.labels_, dtype=bool)
 core_samples_mask[db.core_sample_indices_] = True
+db_n_clusters_ = len(set(db.labels_)) - (1 if -1 in db.labels_ else 0)      # Number of Clusters
 y_pred_dbscan = db.labels_
-db_n_clusters_ = len(set(db.labels_)) - (1 if -1 in db.labels_ else 0)
+
+## ########################### Agglomerative #################################
+
+y_pred_agglo = cluster.AgglomerativeClustering(linkage="ward", n_clusters=n_digits).fit_predict(reduced_data)
+
 
 ## ############################## SHOW RESULT ################################
 
-f, (ax1, ax2, ax3) = plt.subplots(1, 3, sharey=True)
+f, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, sharey=True)
 f.suptitle("PCA-based Clustering", fontsize=16)
 
 # Plot the centroids as a red X
@@ -71,6 +76,9 @@ ax2.set_title('Spectral')
 
 ax3.scatter(reduced_data[:, 0], reduced_data[:, 1], c = y_pred_dbscan, s = 4)
 ax3.set_title('DBSCAN')
+
+ax4.scatter(reduced_data[:, 0], reduced_data[:, 1], c = y_pred_agglo, s = 4)
+ax4.set_title('Agglomerative')
 
 plt.show()
 
