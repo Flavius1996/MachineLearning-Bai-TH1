@@ -1,19 +1,21 @@
 # -*- coding: utf-8 -*-
 """
-TH 1 - Bài 3: Thực hiện Clustering cho dữ liệu Labeled Faces in the Wild dự trên feature LBP
+TH 1 - Bài 3: Thực hiện K-means cho dữ liệu Labeled Faces in the Wild dự trên feature LBP
 
                   Tranform data sang PCA 2-D trước khi chạy Clustering      
 
-                  Phiên bản dùng để visualize: 
-                        + Chỉ lấy các samples có ít nhất 60 ảnh ( min_faces_per_person = 60 )
-                        + Số lượng ảnh: 1348
-                        + Số people = số clusters = 8
+                  Phiên bản chạy trên TẤT CẢ các ảnh trong dataset
+                        + Số lượng ảnh: 13233
+                        + Số people = số clusters = 5749
                         + Kích thước ảnh: (62, 47)
 
+                  Lưu ý: Phiên bản này sẽ chỉ thực hiện K-means Clustering và Performance Evaluation
+                            không thực hiện các phương pháp còn lại vì thời gian chạy quá lâu và.
+                            không thực hiện visualization vì số clusters quá lớn.
 
 @author: Hoàng Hữu Tín - 14520956
-Created on Sun Oct  8 16:24:10 2017
-Last Modified: Oct 10 11:05 PM
+Created on Sun Oct 10 11:15:10 2017
+Last Modified: Oct 11 08:20 AM
 """
 # import the necessary packages
 from skimage import feature
@@ -30,10 +32,10 @@ from sklearn.decomposition import PCA
 from sklearn.neighbors import kneighbors_graph
 from sklearn.preprocessing import scale
 
-#################################################
+#################################################   NOT USE FOR ALL DATASET
     # Define min number of facial images per person. (Only get data of people who have #images >= this number)
     # The smaller this number is, the larger dataset.
-MIN_FACES_PER_PERSON = 60
+# MIN_FACES_PER_PERSON = 0
 ##################################################
 
 # LBP Histogram vector filename: Structure as a Dictionary with attributes
@@ -41,17 +43,16 @@ MIN_FACES_PER_PERSON = 60
     # Target: True label for each image
     # n_images: number of images current in this dataset (with MIN_FACES_PER_PERSON was defined)
     # n_people: number of people = number of clusters
-HIST_filename = "HIST_visual_minface"+ str(MIN_FACES_PER_PERSON) + ".data"
-
+HIST_filename = "HIST_all.data"
 
 # Model files store model trained from clustering methods:  Structure as a Dictionary with attributes
     # model: trained model return from scikit learn functions
     # time: processing time
     # name: name of clustering method
-KMEANS_filename = "Kmeans_visual_minface" + str(MIN_FACES_PER_PERSON) + ".model"
-SPECTRAL_filename = "Spectral_visual_minface" + str(MIN_FACES_PER_PERSON) + ".model"
-DBSCAN_filename = "DBSCAN_visual_minface" + str(MIN_FACES_PER_PERSON) + ".model"
-AGGLO_filename = "Agglo_visual_minface" + str(MIN_FACES_PER_PERSON) + ".model"
+KMEANS_filename = "Kmeans_all.model"
+SPECTRAL_filename = "Spectral_all.model"
+DBSCAN_filename = "DBSCAN_all.model"
+AGGLO_filename = "Agglo_all.model"
 
 # Structure of 2 dictionary will be stored in file
 HIST_DATA = {"Histogram": [], "Target": [], "n_images":0, "n_people":0}         # for HIST data
@@ -74,7 +75,7 @@ else:
     # Create new Histogram Data
     print("Get Data from the labeled face in the Wild: run fetch_lfw_people()")
     # Get Data
-    lfw_people = fetch_lfw_people(min_faces_per_person = MIN_FACES_PER_PERSON)
+    lfw_people = fetch_lfw_people()
     N_IMAGES = len(lfw_people.images)
     HIST_DATA["n_images"] = N_IMAGES
     HIST_DATA["n_people"] = len(lfw_people.target_names)
@@ -129,8 +130,8 @@ TARGET = HIST_DATA["Target"]
 # Use PCA to reduce data to 2D
 reduced_data = PCA(n_components = 2).fit_transform(data)
 
-METHODS_name = ["K-MEANS", "SPECTRAL", "DBSCAN", "AGGLOMERATIVE"]
-METHODS_filename = [KMEANS_filename, SPECTRAL_filename, DBSCAN_filename, AGGLO_filename]
+METHODS_name = ["K-MEANS"]
+METHODS_filename = [KMEANS_filename]
 
 CLUSTERS_ARR = []
 
@@ -190,25 +191,3 @@ for method in CLUSTERS_ARR:
                # metrics.fowlkes_mallows_score(TARGET, method["model"].labels_))        # Seem don't work, return: nan
          )
 print(84 * '=' + "\n")
-
-## ############################## SHOW RESULT ################################
-print("Visualize Result")
-
-f, ((ax1, ax2), (ax3, ax4)) = plt.subplots(2, 2, sharey=True)
-f.suptitle("Clustering on LFW data with min_face_per_person = " + str(MIN_FACES_PER_PERSON) + ", n_clusters = " + str(N_CLUSTERS) , fontsize=16)
-
-Point_size = 10
-
-ax1.scatter(reduced_data[:, 0], reduced_data[:, 1], c = CLUSTERS_ARR[0]["model"].labels_, s = Point_size)
-ax1.set_title('K-means')
-
-ax2.scatter(reduced_data[:, 0], reduced_data[:, 1], c = CLUSTERS_ARR[1]["model"].labels_, s = Point_size)
-ax2.set_title('Spectral')
-
-ax3.scatter(reduced_data[:, 0], reduced_data[:, 1], c = CLUSTERS_ARR[2]["model"].labels_, s = Point_size)
-ax3.set_title('DBSCAN')
-
-ax4.scatter(reduced_data[:, 0], reduced_data[:, 1], c = CLUSTERS_ARR[3]["model"].labels_, s = Point_size)
-ax4.set_title('Agglomerative')
-
-plt.show()
