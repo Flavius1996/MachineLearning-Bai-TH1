@@ -3,6 +3,8 @@
 Bài TH 1 - Bài 1: Thực hiện K-means Clustering cho 2 Gaussian Blobs
 
 @author: Hoàng Hữu Tín - 14520956
+Language: Python 3.6.1 - Anaconda 4.4 (64-bit)
+OS: Windows 10 x64
 Created on Thu Sep 28 14:04:35 2017
 Last Modified: Oct 05 4:25 PM
 """

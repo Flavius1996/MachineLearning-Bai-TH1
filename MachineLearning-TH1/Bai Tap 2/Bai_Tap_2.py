@@ -5,6 +5,8 @@ TH 1 - Bài 2: Thực hiện K-means, Spectral, DBSCAN và Agglomerative Cluster
             Tranform data sang PCA 2-D trước khi chạy Clustering
 
 @author: Hoàng Hữu Tín - 14520956
+Language: Python 3.6.1 - Anaconda 4.4 (64-bit)
+OS: Windows 10 x64
 Created on Thu Sep 28 14:06:38 2017
 Last Modified: Oct 10 21:20 PM
 """

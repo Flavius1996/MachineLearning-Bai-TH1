@@ -14,6 +14,8 @@ TH 1 - Bài 3: Thực hiện K-means cho dữ liệu Labeled Faces in the Wild d
                             không thực hiện visualization vì số clusters quá lớn.
 
 @author: Hoàng Hữu Tín - 14520956
+Language: Python 3.6.1 - Anaconda 4.4 (64-bit)
+OS: Windows 10 x64
 Created on Sun Oct 10 11:15:10 2017
 Last Modified: Oct 11 08:20 AM
 """

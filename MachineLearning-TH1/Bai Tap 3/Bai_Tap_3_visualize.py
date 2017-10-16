@@ -12,6 +12,8 @@ TH 1 - Bài 3: Thực hiện Clustering cho dữ liệu Labeled Faces in the Wil
 
 
 @author: Hoàng Hữu Tín - 14520956
+Language: Python 3.6.1 - Anaconda 4.4 (64-bit)
+OS: Windows 10 x64
 Created on Sun Oct  8 16:24:10 2017
 Last Modified: Oct 10 11:05 PM
 """
