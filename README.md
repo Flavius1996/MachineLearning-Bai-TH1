@@ -14,9 +14,31 @@ MSSV: 14520956
 
 Tiến độ hiện tại:
   + Bài 1: Hoàn thành
-  + Bài 2: Hoàn thành K-means, Spectral, DBSCAN và visualize kết quả. 
-           Tiếp theo: Clustering performance evaluation + Agglomerative
-  + Bài 3: Hoàn thành rút trích LBP histogram, chạy Clustering K-means và visualize kết quả.
-           Tiếp theo: Các phương pháp Cluster còn lại + Performance Evaluation
+  + Bài 2: Hoàn thành
+           
+           K-means, Spectral, DBSCAN, Agglomerative và visualize kết quả.
+  
+           Performance evaluation theo: Adjusted Rand index (ARI), Mutual Information based scores (AMI), Homogeneity, completeness and V-measure 
+          
+           --> Done
+  + Bài 3: Hoàn thành
+  
+           File "Bai_tap_3_visualize.py" 
+           
+                Dataset min_face_per_person = 60
+                
+                Rút trích LBP histogram, chạy Clustering K-means, Spectral, DBSCAN, Agglomerative và visualize kết quả.
+                
+                Performance evaluation theo: ARI, AMI, Homogeneity, completeness and V-measure
+                
+                
+            File "Bai_tap_3_all.py" 
+            
+                Dataset toàn bộ 13233 ảnh trong LFW.
+                
+                Rút trích LBP histogram, chạy Clustering K-means + Performance evaluation. Thời gian chạy quá lâu nên không thực hiện các phương pháp còn lại
+           
+           Dữ liệu LBP features và model được lưu lại trong các file .data, .model
+           --> Done
            
 Báo cáo: Đang hoàn thiện ...
