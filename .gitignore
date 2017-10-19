@@ -259,3 +259,9 @@ paket-files/
 # Python Tools for Visual Studio (PTVS)
 __pycache__/
 *.pyc
+/MachineLearning-TH1/Bai Tap 4/Dataset/lfw
+/MachineLearning-TH1/Bai Tap 4/Dataset/lfw_mtcnnpy_160
+/MachineLearning-TH1/Bai Tap 4/facenet_model/20170512-110547
+*.dat
+/MachineLearning-TH1/Bai Tap 4/shape_predictor_68_face_landmarks.dat
+/MachineLearning-TH1/Bai Tap 4/Dataset/lfw_mtcnnpy_160_minface_60

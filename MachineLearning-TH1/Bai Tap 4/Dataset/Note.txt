@@ -1,0 +1,17 @@
+
+---------------------------------------------- DESCRIPTION -------------------------------------------
+Folder lfw : labeled face in the wild (RAW)
+Folder lfw_mtcnnpy_160 : aligned lfw use Multi-task CNN, use function facenet/src/align_dataset_mtcnn.py
+    Run by followed command:
+	python align_dataset_mtcnn.py "Dataset\lfw" "Dataset\lfw_mtcnnpy_160" --image_size 160 --margin 32 --random_order --gpu_memory_fraction 0.25
+
+Folder lfw_mtcnnpy_160_minface_60 : Subfolder of lfw_mtcnnpy_160 with only people have >= 60 images
+
+
+------------------------------------------- NEED TO DOWNLOAD ------------------------------------------
+Due to Github's repo size limitation (< 1 GB), so LFW dataset will up load at another host.
+
+Please, Download aligned LFW dataset at:
+	https://drive.google.com/open?id=0B9hMAZTpHpyCVGR6dzV0TWx0MUU
+You will get a file 'lfw_mtcnnpy_160.zip', extract this file here.
+

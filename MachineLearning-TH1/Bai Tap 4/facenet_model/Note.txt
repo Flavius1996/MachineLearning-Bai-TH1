@@ -1,0 +1,6 @@
+Due to Github's file size limitation (< 100 MB), so Trained model will up load at another host.
+
+Please, Download Trained model at:
+	https://drive.google.com/file/d/0B5MzpY9kBtDVZ2RpVDYwWmxoSUk
+
+You will get a file '20170512-110547.zip', extract this file here.
