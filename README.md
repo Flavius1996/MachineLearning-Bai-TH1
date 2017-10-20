@@ -57,4 +57,5 @@ Tiến độ hiện tại:
               4. Dùng facenet embeddings như features để Clustering.
         
         
-Báo cáo: Đang hoàn thiện ...
+Báo cáo: 
+  https://github.com/Flavius1996/MachineLearning-Bai-TH1/blob/master/%5B14520956%5D%20B%C3%A1o%20c%C3%A1o%20B%C3%A0i%20th%E1%BB%B1c%20h%C3%A0nh%201.pdf
