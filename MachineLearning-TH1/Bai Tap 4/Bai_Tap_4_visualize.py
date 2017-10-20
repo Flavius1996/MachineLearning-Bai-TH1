@@ -6,11 +6,14 @@ TH 1 - Bài 4: Thực hiện Clustering cho dữ liệu Labeled Faces in the Wil
                         Paper: https://arxiv.org/pdf/1503.03832.pdf
                         REF Code: https://github.com/davidsandberg/facenet
 
-                  Phiên bản dùng để visualize: 
-                        + Chỉ lấy các samples có ít nhất 60 ảnh ( min_faces_per_person = 60 )
-                        + Số lượng ảnh: 1348
-                        + Số people = số clusters = 8
 
+                  Phiên bản dùng để visualize:
+                        Thư mục: Dataset\lfw_mtcnnpy_160_minface_60
+                        Gồm ảnh đã được alignment của 8 people có số lượng ảnh >= 60
+                        Số lượng ảnh: 1348
+                        Số people = số clusters = 8
+                        Kích thước ảnh: 160x160
+                        
 @author: Hoàng Hữu Tín - 14520956
 Language: Python 3.6.1 - Anaconda 4.4 (64-bit)
 OS: Windows 10 x64
